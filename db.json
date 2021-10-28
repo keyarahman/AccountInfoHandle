@@ -1,0 +1,14 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "Nadia",
+      "details": "she is a software engineer"
+    },
+    {
+      "name": "keya",
+      "details": "She is a software engineer",
+      "id": 2
+    }
+  ]
+}
