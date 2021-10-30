@@ -9,8 +9,12 @@ import { addUser } from "../redux/action";
 const AddUser = () => {
   let dispatch = useDispatch();
   const [data, setData] = useState({
-    name: "",
-    details: "",
+    title: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    phone: "",
   });
   const [error, setError] = useState("");
   let history = useHistory();
@@ -22,24 +26,33 @@ const AddUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !details) {
+    if (!title || !first_name || !last_name || !email || !password || !phone) {
       setError("please fill up all the inputs");
     } else {
       setError("");
-      dispatch(addUser(data));
-      history.push("/");
+      dispatch(
+        addUser(
+          data.title,
+          data.first_name,
+          data.last_name,
+          data.email,
+          data.password,
+          data.phone
+        )
+      );
+      history.push("/userList");
     }
   };
 
-  const { name, details } = data;
+  const { title, first_name, last_name, email, password, phone } = data;
   return (
     <div>
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "50px" }}>
         <Button
-          style={{ width: "100px", paddingTop: "10px" }}
+          style={{ width: "100px", paddingTop: "" }}
           variant="contained"
           color="secondary"
-          onClick={() => history.push("/")}
+          onClick={() => history.push("/userList")}
         >
           Go Back
         </Button>
@@ -59,26 +72,65 @@ const AddUser = () => {
         >
           <TextField
             id="standard-basic"
-            label="Name"
+            label="Title"
             variant="standard"
-            name="name"
-            value={name}
+            name="title"
+            value={title}
             type="text"
             onChange={handleInputchange}
           />
           <br />
           <TextField
             id="standard-basic"
-            label="Details"
+            label="First Name"
             variant="standard"
-            name="details"
-            value={details}
+            name="first_name"
+            value={first_name}
             type="text"
             onChange={handleInputchange}
           />
-
           <br />
-
+          <TextField
+            id="standard-basic"
+            label="Last Name"
+            variant="standard"
+            name="last_name"
+            value={last_name}
+            type="text"
+            onChange={handleInputchange}
+          />
+          <br />
+          <TextField
+            id="standard-basic"
+            label="Email"
+            variant="standard"
+            name="email"
+            value={email}
+            type="email"
+            onChange={handleInputchange}
+          />
+          <br />
+          <TextField
+            id="standard-basic"
+            label="Password"
+            variant="standard"
+            name="password"
+            value={password}
+            type="password"
+            onChange={handleInputchange}
+          />
+          <br />{" "}
+          <TextField
+            id="standard-basic"
+            label="Phone Number"
+            variant="standard"
+            name="phone"
+            value={phone}
+            type="number"
+            onChange={handleInputchange}
+          />
+          <br />
+          <br />
           <Button
             style={{ width: "100px", paddingTop: "10px" }}
             variant="contained"

@@ -5,8 +5,12 @@ const initialState = {
   user: {},
   loading: true,
 };
-
-const userReducers = (state = initialState, action) => {
+const initialLoginState = {
+  isLoading: true,
+  email: null,
+  userDetails: [],
+};
+export const userReducers = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_USERS:
       return {
@@ -40,4 +44,28 @@ const userReducers = (state = initialState, action) => {
   }
 };
 
-export default userReducers;
+export const AuthReducer = (state = initialLoginState, action) => {
+  switch (action.type) {
+    // case RETRIEVE_TOKEN:
+    //   return {
+    //     ...initialLoginState,
+    //     userToken: action.token,
+    //     isLoading: false,
+    //   };
+    case types.LOGIN:
+      return {
+        ...initialLoginState,
+        userDetails: action.payload,
+        isLoading: false,
+      };
+    // case LOGOUT:
+    //   return {
+    //     ...initialLoginState,
+    //     email: null,
+    //     userToken: null,
+    //     isLoading: false,
+    //   };
+    default:
+      return state;
+  }
+};

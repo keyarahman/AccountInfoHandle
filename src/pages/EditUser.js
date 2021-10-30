@@ -9,8 +9,10 @@ import { getSingleUser, updateUser } from "../redux/action";
 const EditUser = () => {
   let dispatch = useDispatch();
   const [data, setData] = useState({
-    name: "",
-    details: "",
+    title: "",
+    first_name: "",
+    last_name: "",
+    phone: "",
   });
   const [error, setError] = useState("");
   let history = useHistory();
@@ -23,7 +25,14 @@ const EditUser = () => {
 
   useEffect(() => {
     if (user) {
-      setData({ ...user });
+      console.log(user);
+      setData({
+        ...user,
+        title: user.title,
+        first_name: user.name,
+        last_name: user.last_name,
+        phone: user.phone,
+      });
     }
   }, [user]);
   const handleInputchange = (e) => {
@@ -31,26 +40,34 @@ const EditUser = () => {
     setData({ ...data, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
-    if (!name || !details) {
+    if (!title || !first_name || !last_name || !phone) {
       setError("please fill up all the inputs");
     } else {
       setError("");
-      dispatch(updateUser(data, id));
-      history.push("/");
+      dispatch(
+        updateUser(
+          data.title,
+          data.first_name,
+          data.last_name,
+          data.phone,
+          user.id
+        )
+      );
+      history.push("/userList");
     }
   };
 
-  const { name, details } = data;
+  const { title, first_name, last_name, phone } = data;
   return (
     <div>
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "50px" }}>
         <Button
-          style={{ width: "100px", paddingTop: "10px" }}
+          style={{ width: "100px", paddingTop: "" }}
           variant="contained"
           color="secondary"
-          onClick={() => history.push("/")}
+          onClick={() => history.push("/userList")}
         >
           Go Back
         </Button>
@@ -66,30 +83,50 @@ const EditUser = () => {
           }}
           noValidate
           autoComplete="off"
-          onSubmit={handleSubmit}
+          onSubmit={handleUpdate}
         >
           <TextField
             id="standard-basic"
-            label="Name"
+            label="Title"
             variant="standard"
-            name="name"
-            value={name}
+            name="title"
+            value={title}
             type="text"
             onChange={handleInputchange}
           />
           <br />
           <TextField
             id="standard-basic"
-            label="Details"
+            label="First Name"
             variant="standard"
-            name="details"
-            value={details}
+            name="first_name"
+            value={first_name}
             type="text"
             onChange={handleInputchange}
           />
-
+          <br />
+          <TextField
+            id="standard-basic"
+            label="Last Name"
+            variant="standard"
+            name="last_name"
+            value={last_name}
+            type="text"
+            onChange={handleInputchange}
+          />
           <br />
 
+          <TextField
+            id="standard-basic"
+            label="Phone"
+            variant="standard"
+            name="phone"
+            value={phone}
+            type="text"
+            onChange={handleInputchange}
+          />
+          <br />
+          <br />
           <Button
             style={{ width: "100px", paddingTop: "10px" }}
             variant="contained"
