@@ -41,6 +41,10 @@ const RegisterPage = () => {
       // history.push("/Dashboard");
     }
   };
+
+  const handleButton = () => {
+    history.push("/");
+  };
   return (
     <div>
       <Container style={{ width: "100%", height: "100%" }}>
@@ -139,6 +143,16 @@ const RegisterPage = () => {
                   type="submit"
                 >
                   Submit
+                </Button>
+
+                <Button
+                  style={{ width: "255px", paddingTop: "10px" }}
+                  // variant="contained"
+                  color="primary"
+                  type="text"
+                  onClick={handleButton}
+                >
+                  Sign In
                 </Button>
               </Box>
             </div>

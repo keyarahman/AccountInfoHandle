@@ -9,6 +9,7 @@ const initialLoginState = {
   isLoading: true,
   email: null,
   userDetails: {},
+  loginError: "",
 };
 const initialAccountState = {
   accounts: [],
@@ -81,6 +82,12 @@ export const authReducer = (state = initialLoginState, action) => {
       return {
         ...initialLoginState,
         userDetails: action.payload,
+        isLoading: false,
+      };
+    case types.LOGIN_ERROR:
+      return {
+        ...initialLoginState,
+        loginError: action.payload,
         isLoading: false,
       };
     // case LOGOUT:

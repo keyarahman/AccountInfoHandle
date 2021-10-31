@@ -23,8 +23,6 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [profileData, setProfileData] = useState(null);
 
-  const { userDetails } = useSelector((state) => state.authData);
-
   const handleOnClick = (i) => {
     if (i == 0) {
       history.push("/Dashboard");

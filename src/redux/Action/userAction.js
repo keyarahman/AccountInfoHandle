@@ -46,8 +46,12 @@ const loginUser = (res) => ({
   type: types.LOGIN,
   payload: res,
 });
+const loginerror = (res) => ({
+  type: types.LOGIN_ERROR,
+  payload: res,
+});
 
-export const Login = (email, password, onComplete) => {
+export const Login = (email, password, onComplete, onError) => {
   return function (dispatch) {
     var data = {
       email: email,
@@ -61,22 +65,26 @@ export const Login = (email, password, onComplete) => {
           },
         })
         .then(function (response) {
+          console.log(response.data);
           if (response && response.data) {
             localStorage.setItem("userToken", response.data.accessToken);
             localStorage.setItem(
               "profile",
               JSON.stringify(response.data.dashboard.profile)
             );
-
+            dispatch(loginerror(""));
             dispatch(loginUser(response.data.dashboard.profile));
+
             onComplete && onComplete();
           }
         })
         .catch(function (error) {
-          console.log(error);
+          onError();
+          // dispatch(loginerror("Invalid email or password"));
         });
     } catch (error) {
-      console.log("error in getting order data : ", error);
+      onError();
+      //dispatch(loginerror("Invalid email or password"));
     }
   };
 };

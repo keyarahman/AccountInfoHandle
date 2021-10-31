@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 const LogInPage = () => {
   let dispatch = useDispatch();
+  const { loginError } = useSelector((state) => state.authData);
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -17,29 +19,42 @@ const LogInPage = () => {
   const { email, password } = data;
 
   const [error, setError] = useState("");
+
+  // setError(loginError);
+
   let history = useHistory();
   const handleInputchange = (e) => {
     let { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
+
   const handleLogIn = (e) => {
     e.preventDefault();
     if (!email || !password) {
       setError("please fill up all the inputs");
     } else {
       setError("");
+
       dispatch(
-        Login(data.email, data.password, () => {
-          history.push("/Dashboard");
-        })
+        Login(
+          data.email,
+          data.password,
+          () => {
+            setError("");
+            history.push("/Dashboard");
+          },
+          () => {
+            setError("Invalid email or password");
+          }
+        )
       );
-      // history.push("/Dashboard");
     }
   };
 
   const handleButton = () => {
     history.push("/register");
   };
+
   return (
     <Container style={{ width: "100%", height: "100%" }}>
       <Box
@@ -96,6 +111,11 @@ const LogInPage = () => {
               >
                 LogIn
               </Button>
+              {/* {loginError && (
+                <h5 style={{ color: "red", marginLeft: "80px" }}>
+                  {loginError}
+                </h5>
+              )} */}
               <div
                 style={{
                   display: "flex",
