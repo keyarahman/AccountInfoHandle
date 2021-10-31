@@ -1,4 +1,4 @@
-import * as types from "./actionType";
+import * as types from "../actionType";
 import axios from "axios";
 
 const USER_API =
@@ -14,10 +14,11 @@ const EDIT_USER_API =
   "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/user_edit";
 
 const USER_DELETE_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/user_delete/";
+  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/user_delete";
 
 const LOGIN_API =
   "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/login";
+
 const getUsers = (users) => ({
   type: types.GET_USERS,
   payload: users,
@@ -64,7 +65,8 @@ export const Login = (email, password, onComplete) => {
             if (response.data.dashboard.profile.role == "Admin") {
               console.log(response.data.accessToken);
               localStorage.setItem("userToken", response.data.accessToken);
-              dispatch(loginUser(response.data));
+
+              dispatch(loginUser(response.data.dashboard.profile));
               onComplete && onComplete();
             } else {
               console.log("not admin");
