@@ -35,12 +35,12 @@ const AccountDetails = () => {
     dispatch(getAnAccount(id));
   }, []);
 
-  const { transactions } = useSelector((state) => state.accountData);
-  console.log(transactions);
+  const { account } = useSelector((state) => state.accountData);
+  console.log(account);
 
   const handleOnClick = (i) => {
     if (i === 0) {
-      history.push("/adminDashboard");
+      history.push("/Dashboard");
     }
     if (i === 1) {
       history.push("/userList");
@@ -108,11 +108,26 @@ const AccountDetails = () => {
               }}
             >
               <Container maxWidth="md">
+                <div>
+                  <h1>Account Holder</h1>
+                  <TableContainer sx={{}} component={Paper}>
+                    <Table sx={{}} size="small">
+                      <TableBody>
+                        <p>Name:{account.id}</p>
+                        <p>Account Number: {account.account_number}</p>
+                        <p>Account Type: {account.account_type}</p>
+                        <h1>Email: {account.name}</h1>
+                        <p>Phone: {account.phone} </p>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
                 <div
                   style={{
                     display: "flex",
                     justifyContent: "center",
                     width: "100%",
+
                     padding: "1rem",
                   }}
                 >
@@ -130,8 +145,8 @@ const AccountDetails = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {transactions &&
-                        transactions.map((statement) => (
+                      {account.transactions &&
+                        account.transactions.map((statement) => (
                           <TableRow
                             key={statement.id}
                             sx={{

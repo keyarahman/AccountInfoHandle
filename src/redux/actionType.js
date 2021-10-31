@@ -8,3 +8,4 @@ export const GET_SINGLE_USER = "GET_SINGLE_USER";
 
 export const GET_ACCOUNTS = "GET_ACCOUNTS";
 export const GET_AN_ACCOUNT = "GET_AN_ACCOUNT";
+export const RETRIEVE_TOKEN = "RETRIEVE_TOKEN";

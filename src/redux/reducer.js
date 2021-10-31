@@ -61,7 +61,7 @@ export const accountReducer = (state = initialAccountState, action) => {
     case types.GET_AN_ACCOUNT:
       return {
         ...state,
-        transactions: action.payload,
+        account: action.payload,
         loading: false,
       };
 
@@ -69,12 +69,12 @@ export const accountReducer = (state = initialAccountState, action) => {
       return state;
   }
 };
-export const AuthReducer = (state = initialLoginState, action) => {
+export const authReducer = (state = initialLoginState, action) => {
   switch (action.type) {
-    // case RETRIEVE_TOKEN:
+    // case types.RETRIEVE_TOKEN:
     //   return {
     //     ...initialLoginState,
-    //     userToken: action.token,
+    //     userDetails: action.token,
     //     isLoading: false,
     //   };
     case types.LOGIN:

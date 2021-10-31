@@ -48,8 +48,10 @@ export const getAnAccount = (id) => {
       })
       .then((res) => {
         console.log("responseData", res.data.account.transactions);
-        dispatch(get_an_account(res.data.account.transactions));
+        dispatch(get_an_account(res.data.account));
       })
       .catch((error) => console.log("error", error));
   };
 };
+
+const getCurrentDashboard = () => {};

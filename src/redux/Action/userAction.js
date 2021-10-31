@@ -65,6 +65,10 @@ export const Login = (email, password, onComplete) => {
             if (response.data.dashboard.profile.role == "Admin") {
               console.log(response.data.accessToken);
               localStorage.setItem("userToken", response.data.accessToken);
+              localStorage.setItem(
+                "profile",
+                JSON.stringify(response.data.dashboard.profile)
+              );
 
               dispatch(loginUser(response.data.dashboard.profile));
               onComplete && onComplete();
@@ -110,9 +114,9 @@ export const deleteUser = (id) => {
   return function (dispatch) {
     try {
       axios
-        .post(
+        .delete(
           `${USER_DELETE_API}/${id}`,
-          {},
+
           {
             headers: {
               Authorization: `Bearer ${token}`,

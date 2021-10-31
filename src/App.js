@@ -5,8 +5,8 @@ import AddUser from "./pages/AddUser";
 import EditUser from "./pages/EditUser";
 import RegisterPage from "./pages/AuthPages/RegisterPage";
 import LogInPage from "./pages/AuthPages/LoginPage";
-import AdminDashboard from "./pages/AdminDashboard";
-import Profile from "./pages/Profile";
+import Dashboard from "./pages/Dashboard";
+
 import UserListPage from "./pages/UserListPage";
 import AccountListPage from "./pages/AccountListPage";
 import AccountDetails from "./pages/AccountDetails";
@@ -16,9 +16,8 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={LogInPage} />
-        <Route exact path="/adminDashboard" component={AdminDashboard} />
+        <Route exact path="/Dashboard" component={Dashboard} />
         <Route exact path="/accountdetails/:id" component={AccountDetails} />
-        <Route exact path="/adminDashboard" component={Profile} />
         <Route exact path="/userList" component={UserListPage} />
         <Route exact path="/accountList" component={AccountListPage} />
         <Route exact path="/register" component={RegisterPage} />

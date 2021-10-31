@@ -30,10 +30,10 @@ const LogInPage = () => {
       setError("");
       dispatch(
         Login(data.email, data.password, () => {
-          history.push("/adminDashboard");
+          history.push("/Dashboard");
         })
       );
-      // history.push("/adminDashboard");
+      // history.push("/Dashboard");
     }
   };
 
