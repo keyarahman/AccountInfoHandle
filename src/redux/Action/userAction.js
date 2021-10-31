@@ -19,6 +19,9 @@ const USER_DELETE_API =
 const LOGIN_API =
   "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/login";
 
+const SIGN_UP_API =
+  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/signup";
+
 const getUsers = (users) => ({
   type: types.GET_USERS,
   payload: users,
@@ -58,24 +61,54 @@ export const Login = (email, password, onComplete) => {
           },
         })
         .then(function (response) {
-          console.log(response);
-          console.log(response.data.dashboard);
-          console.log(response.data.dashboard.userList.role);
           if (response && response.data) {
-            if (response.data.dashboard.profile.role == "Admin") {
-              console.log(response.data.accessToken);
-              localStorage.setItem("userToken", response.data.accessToken);
-              localStorage.setItem(
-                "profile",
-                JSON.stringify(response.data.dashboard.profile)
-              );
+            localStorage.setItem("userToken", response.data.accessToken);
+            localStorage.setItem(
+              "profile",
+              JSON.stringify(response.data.dashboard.profile)
+            );
 
-              dispatch(loginUser(response.data.dashboard.profile));
-              onComplete && onComplete();
-            } else {
-              console.log("not admin");
-            }
+            dispatch(loginUser(response.data.dashboard.profile));
+            onComplete && onComplete();
           }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log("error in getting order data : ", error);
+    }
+  };
+};
+
+export const signUp = (
+  title,
+  fName,
+  lName,
+  email,
+  password,
+  phone,
+  onComplete
+) => {
+  return function (dispatch) {
+    var data = {
+      title: title,
+      first_name: fName,
+      last_name: lName,
+      email: email,
+      password: password,
+      phone: phone,
+    };
+    try {
+      axios
+        .post(SIGN_UP_API, data, {
+          headers: {
+            Accept: "application/json",
+          },
+        })
+        .then(function (response) {
+          console.log(response);
+          onComplete && onComplete();
         })
         .catch(function (error) {
           console.log(error);

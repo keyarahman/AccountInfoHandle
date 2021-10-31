@@ -66,7 +66,8 @@ const UserListPage = () => {
         >
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              Admin Dashboard
+              {" "}
+              User List
             </Typography>
           </Toolbar>
         </AppBar>

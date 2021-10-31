@@ -59,7 +59,7 @@ const AccountListPage = () => {
         >
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              Admin Dashboard
+              Account List
             </Typography>
           </Toolbar>
         </AppBar>
@@ -100,7 +100,7 @@ const AccountListPage = () => {
                 display: "flex",
                 width: "100%",
                 height: "100%",
-                paddingTop: "50px",
+                paddingTop: "100px",
 
                 alignItems: "flex-start",
               }}
@@ -112,9 +112,7 @@ const AccountListPage = () => {
                     justifyContent: "center",
                     width: "100%",
                   }}
-                >
-                  <h1>Account List</h1>
-                </div>
+                ></div>
 
                 <TableContainer sx={{}} component={Paper}>
                   <Table sx={{}} size="small" aria-label="a dense table">

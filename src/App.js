@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import UserListPage from "./pages/UserListPage";
 import AccountListPage from "./pages/AccountListPage";
 import AccountDetails from "./pages/AccountDetails";
+import personalAccount from "./pages/PersonalAccount";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/accountdetails/:id" component={AccountDetails} />
         <Route exact path="/userList" component={UserListPage} />
         <Route exact path="/accountList" component={AccountListPage} />
+        <Route exact path="/personalAccount/:id" component={personalAccount} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/user" component={UserDashboard} />
         <Route exact path="/addUser" component={AddUser} />

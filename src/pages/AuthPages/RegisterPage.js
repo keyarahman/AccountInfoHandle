@@ -5,16 +5,22 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useHistory } from "react-router";
+import { SIGN_UP } from "../../redux/actionType";
+import { signUp } from "../../redux/Action/userAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const RegisterPage = () => {
   let history = useHistory();
+  const dispatch = useDispatch();
   const [data, setData] = useState({
-    userName: "",
+    title: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    description: "",
     password: "",
+    phone: "",
   });
-  const { userName, email, description, password } = data;
+  const { title, first_name, last_name, email, password, phone } = data;
 
   const [error, setError] = useState("");
   const handleInputchange = (e) => {
@@ -23,24 +29,27 @@ const RegisterPage = () => {
   };
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
-    if (!userName || !email || !description || !password) {
+    if (!title || !first_name || !last_name || !email || !password || !phone) {
       setError("please fill up all the inputs");
     } else {
       setError("");
-      //   dispatch(addUser(data));
-      history.push("/login");
+      dispatch(
+        signUp(title, first_name, last_name, email, password, phone, () => {
+          history.push("/");
+        })
+      );
+      // history.push("/Dashboard");
     }
   };
-
   return (
     <div>
       <Container style={{ width: "100%", height: "100%" }}>
         <Box
           sx={{
             bgcolor: "white",
-            height: "70vh",
+            height: "80vh",
             width: "450px",
-            marginTop: "100px",
+            marginTop: "50px",
             marginLeft: "350px",
             boxShadow: ".2px .2px .2px .5px",
           }}
@@ -60,15 +69,35 @@ const RegisterPage = () => {
               >
                 <TextField
                   id="standard-basic"
-                  label="User Name"
+                  label="Title"
                   variant="standard"
-                  name="userName"
-                  value={userName}
+                  name="title"
+                  value={title}
+                  type="text"
+                  onChange={handleInputchange}
+                />
+                <br />
+                <TextField
+                  id="standard-basic"
+                  label="First Name"
+                  variant="standard"
+                  name="first_name"
+                  value={first_name}
                   type="text"
                   onChange={handleInputchange}
                 />
                 <br />
 
+                <TextField
+                  id="standard-basic"
+                  label="Last Name"
+                  variant="standard"
+                  name="last_name"
+                  value={last_name}
+                  type="text"
+                  onChange={handleInputchange}
+                />
+                <br />
                 <TextField
                   id="standard-basic"
                   label="Email"
@@ -79,16 +108,7 @@ const RegisterPage = () => {
                   onChange={handleInputchange}
                 />
                 <br />
-                <TextField
-                  id="standard-basic"
-                  label="Description"
-                  variant="standard"
-                  name="description"
-                  value={description}
-                  type="description"
-                  onChange={handleInputchange}
-                />
-                <br />
+
                 <TextField
                   id="standard-basic"
                   label="Password"
@@ -96,6 +116,17 @@ const RegisterPage = () => {
                   name="password"
                   value={password}
                   type="password"
+                  onChange={handleInputchange}
+                />
+
+                <br />
+                <TextField
+                  id="standard-basic"
+                  label="Phone"
+                  variant="standard"
+                  name="phone"
+                  value={phone}
+                  type="number"
                   onChange={handleInputchange}
                 />
 

@@ -36,7 +36,13 @@ const Dashboard = () => {
       history.push("/accountList");
     }
   };
-
+  const handleClick = (i) => {
+    if (i == 0) {
+      history.push("/Dashboard");
+    } else {
+      history.push(`/personalAccount/${profileData.id}`);
+    }
+  };
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
@@ -66,11 +72,19 @@ const Dashboard = () => {
             ml: `${drawerWidth}px`,
           }}
         >
-          <Toolbar>
-            <Typography variant="h6" noWrap component="div">
-              Admin Dashboard
-            </Typography>
-          </Toolbar>
+          {profileData.role === "Admin" ? (
+            <Toolbar>
+              <Typography variant="h6" noWrap component="div">
+                {profileData.name} Dashboard
+              </Typography>
+            </Toolbar>
+          ) : (
+            <Toolbar>
+              <Typography variant="h6" noWrap component="div">
+                {profileData.name} Dashboard
+              </Typography>
+            </Toolbar>
+          )}
         </AppBar>
         <Drawer
           sx={{
@@ -86,16 +100,33 @@ const Dashboard = () => {
         >
           <Toolbar />
           <Divider />
-          <List style={{ marginTop: "20px" }}>
-            {["Profile", "Users", "Accounts"].map((text, index) => (
-              <ListItem button key={index} onClick={() => handleOnClick(index)}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <AccountBox /> : <Group />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          {profileData.role == "Admin" ? (
+            <List style={{ marginTop: "20px" }}>
+              {["Profile", "Users", "Accounts"].map((text, index) => (
+                <ListItem
+                  button
+                  key={index}
+                  onClick={() => handleOnClick(index)}
+                >
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <AccountBox /> : <Group />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <List style={{ marginTop: "20px" }}>
+              {["Profile", "Accounts"].map((text, index) => (
+                <ListItem button key={index} onClick={() => handleClick(index)}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <AccountBox /> : <Group />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          )}
         </Drawer>
         <Box
           component="container"
