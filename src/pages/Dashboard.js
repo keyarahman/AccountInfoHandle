@@ -11,21 +11,23 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import * as types from "../redux/actionType";
 import { AccountBox, Group, AccountBalance } from "@mui/icons-material";
 import { useHistory } from "react-router-dom";
 import profileImage from "../Images/images.png";
 import { useDispatch, useSelector } from "react-redux";
 const drawerWidth = 240;
 
-const AdminDashboard = () => {
+const Dashboard = () => {
   let history = useHistory();
   const dispatch = useDispatch();
+  const [profileData, setProfileData] = useState(null);
+
+  const { userDetails } = useSelector((state) => state.authData);
 
   const handleOnClick = (i) => {
     if (i == 0) {
-      history.push("/adminDashboard");
+      history.push("/Dashboard");
     }
     if (i == 1) {
       history.push("/userList");
@@ -34,7 +36,6 @@ const AdminDashboard = () => {
       history.push("/accountList");
     }
   };
-  const { userDetails } = useSelector((state) => state.authData);
 
   const [data, setData] = useState({
     first_name: "",
@@ -42,19 +43,18 @@ const AdminDashboard = () => {
     phone: "",
     email: "",
   });
-  useEffect(() => {
-    if (userDetails) {
-      console.log("userDetails", userDetails);
-      setData({
-        ...userDetails,
-        first_name: userDetails.name,
-        last_name: userDetails.last_name,
-        phone: userDetails.phone,
-        email: userDetails.email,
-      });
-    }
-  }, [userDetails]);
 
+  useEffect(() => {
+    let profile_ls = localStorage.getItem("profile");
+    console.log(profile_ls);
+    if (profile_ls) {
+      profile_ls = JSON.parse(profile_ls);
+      console.log(profile_ls);
+      setProfileData(profile_ls);
+    }
+  }, []);
+
+  if (!profileData) return null;
   return (
     <div>
       <Box sx={{ display: "flex" }}>
@@ -146,16 +146,15 @@ const AdminDashboard = () => {
                   disabled
                   id="outlined-disabled"
                   label="First Name"
-                  value={data.first_name}
+                  value={profileData.name}
                   style={{ flex: 1 }}
-                >
-                  {data.first_name}
-                </TextField>
+                ></TextField>
+
                 <TextField
                   disabled
                   id="outlined-disabled"
                   label="Last Name"
-                  value="last_name"
+                  value={profileData.last_name}
                   style={{ flex: 1 }}
                 />
               </div>
@@ -164,14 +163,14 @@ const AdminDashboard = () => {
                 disabled
                 id="outlined-disabled"
                 label="Phone Num"
-                value="phone"
+                value={profileData.phone}
                 style={{ width: "100%" }}
               />
               <TextField
                 disabled
                 id="outlined-disabled"
                 label="Email"
-                value="email"
+                value={profileData.email}
                 style={{ width: "100%" }}
               />
             </div>
@@ -182,4 +181,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default Dashboard;
