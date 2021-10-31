@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleUser, updateUser } from "../redux/action";
+import { getSingleUser, updateUser } from "../redux/Action/userAction";
 
 const EditUser = () => {
   let dispatch = useDispatch();

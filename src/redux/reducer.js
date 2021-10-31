@@ -1,6 +1,6 @@
 import * as types from "./actionType";
 
-const initialState = {
+const initialUserState = {
   users: [],
   user: {},
   loading: true,
@@ -8,9 +8,15 @@ const initialState = {
 const initialLoginState = {
   isLoading: true,
   email: null,
-  userDetails: [],
+  userDetails: {},
 };
-export const userReducers = (state = initialState, action) => {
+const initialAccountState = {
+  accounts: [],
+  account: {},
+  transactions: [],
+  loading: true,
+};
+export const userReducers = (state = initialUserState, action) => {
   switch (action.type) {
     case types.GET_USERS:
       return {
@@ -44,6 +50,25 @@ export const userReducers = (state = initialState, action) => {
   }
 };
 
+export const accountReducer = (state = initialAccountState, action) => {
+  switch (action.type) {
+    case types.GET_ACCOUNTS:
+      return {
+        ...state,
+        accounts: action.payload,
+        loading: false,
+      };
+    case types.GET_AN_ACCOUNT:
+      return {
+        ...state,
+        transactions: action.payload,
+        loading: false,
+      };
+
+    default:
+      return state;
+  }
+};
 export const AuthReducer = (state = initialLoginState, action) => {
   switch (action.type) {
     // case RETRIEVE_TOKEN:

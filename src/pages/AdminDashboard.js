@@ -44,17 +44,17 @@ const AdminDashboard = () => {
   });
   useEffect(() => {
     if (userDetails) {
-      console.log(userDetails);
-      // setData({
-      //   ...userDetails,
-      //   first_name: userDetails.dashboard.profile.name,
-      //   last_name: userDetails.dashboard.profile.last_name,
-      //   phone: userDetails.dashboard.profile.phone,
-      //   email: userDetails.dashboard.profile.email,
-      // });
+      console.log("userDetails", userDetails);
+      setData({
+        ...userDetails,
+        first_name: userDetails.name,
+        last_name: userDetails.last_name,
+        phone: userDetails.phone,
+        email: userDetails.email,
+      });
     }
   }, [userDetails]);
-  const { first_name, last_name, phone, email } = data;
+
   return (
     <div>
       <Box sx={{ display: "flex" }}>
@@ -146,9 +146,11 @@ const AdminDashboard = () => {
                   disabled
                   id="outlined-disabled"
                   label="First Name"
-                  value="first_name"
+                  value={data.first_name}
                   style={{ flex: 1 }}
-                />
+                >
+                  {data.first_name}
+                </TextField>
                 <TextField
                   disabled
                   id="outlined-disabled"

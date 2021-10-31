@@ -10,7 +10,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { useSelector, useDispatch } from "react-redux";
-import { loadUsers, deleteUser } from "../redux/action";
+import { loadUsers, deleteUser } from "../redux/Action/userAction";
 import { useHistory } from "react-router-dom";
 
 const UserDashboard = () => {

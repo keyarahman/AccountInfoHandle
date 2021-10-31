@@ -8,8 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { useSelector, useDispatch } from "react-redux";
-import { loadUsers, deleteUser } from "../redux/action";
-import { useHistory } from "react-router-dom";
+import { getAnAccount } from "../redux/Action/accountAction";
+import { useHistory, useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -28,18 +28,15 @@ const drawerWidth = 240;
 
 const AccountDetails = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.userData);
-
-  const handleDelete = (id) => {
-    if (window.confirm("are you sure wanted to delete the user?")) {
-      dispatch(deleteUser(id));
-    }
-  };
+  let { id } = useParams();
+  let history = useHistory();
 
   useEffect(() => {
-    dispatch(loadUsers());
+    dispatch(getAnAccount(id));
   }, []);
-  let history = useHistory();
+
+  const { transactions } = useSelector((state) => state.accountData);
+  console.log(transactions);
 
   const handleOnClick = (i) => {
     if (i === 0) {
@@ -127,33 +124,29 @@ const AccountDetails = () => {
                     <TableHead>
                       <TableRow sx={{ backgroundColor: "white" }}>
                         <TableCell align="center">Date</TableCell>
-                        <TableCell align="center">Title</TableCell>
+
                         <TableCell align="center">Status</TableCell>
                         <TableCell align="center">Amount</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {users &&
-                        users.map((user) => (
+                      {transactions &&
+                        transactions.map((statement) => (
                           <TableRow
-                            key={user.id}
+                            key={statement.id}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
                           >
-                            <TableCell align="center">{user.name}</TableCell>
-                            <TableCell align="center">{user.details}</TableCell>
                             <TableCell align="center">
-                              <div>
-                                <Button
-                                  variant="contained"
-                                  color="secondary"
-                                  onClick={() => handleDelete(user.id)}
-                                  size="small"
-                                >
-                                  Details
-                                </Button>
-                              </div>
+                              {statement.date}
+                            </TableCell>
+                            <TableCell align="center">
+                              {statement.status}
+                            </TableCell>
+                            <TableCell align="center">
+                              {"\u00A3"}
+                              {statement.amount}
                             </TableCell>
                           </TableRow>
                         ))}

@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../redux/action";
+import { addUser } from "../redux/Action/userAction";
 
 const AddUser = () => {
   let dispatch = useDispatch();

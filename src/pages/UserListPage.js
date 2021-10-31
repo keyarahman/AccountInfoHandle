@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { useSelector, useDispatch } from "react-redux";
-import { loadUsers, deleteUser } from "../redux/action";
+import { loadUsers, deleteUser } from "../redux/Action/userAction";
 import { useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";

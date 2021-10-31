@@ -8,7 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { useSelector, useDispatch } from "react-redux";
-import { loadUsers, deleteUser } from "../redux/action";
 import { useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -23,19 +22,16 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Container from "@mui/material/Container";
 import { AccountBox, Group, AccountBalance } from "@mui/icons-material";
+import { loadAccounts } from "../redux/Action/accountAction";
 
 const drawerWidth = 240;
 
 const AccountListPage = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.userData);
-
-  const handleDetails = (id) => {
-    history.push("/accountdetails");
-  };
+  const { accounts } = useSelector((state) => state.accountData);
 
   useEffect(() => {
-    dispatch(loadUsers());
+    dispatch(loadAccounts());
   }, []);
   let history = useHistory();
 
@@ -94,7 +90,7 @@ const AccountListPage = () => {
         </Drawer>
         <Box
           component="container"
-          sx={{ flex: 1, bgcolor: "#F5F5F5", height: "100vh" }}
+          sx={{ flex: 1, bgcolor: "#F5F5F5", height: "100%" }}
           noValidate
           autoComplete="off"
         >
@@ -104,7 +100,8 @@ const AccountListPage = () => {
                 display: "flex",
                 width: "100%",
                 height: "100%",
-                marginTop: "100px",
+                paddingTop: "50px",
+
                 alignItems: "flex-start",
               }}
             >
@@ -114,7 +111,6 @@ const AccountListPage = () => {
                     display: "flex",
                     justifyContent: "center",
                     width: "100%",
-                    padding: "1rem",
                   }}
                 >
                   <h1>Account List</h1>
@@ -124,28 +120,38 @@ const AccountListPage = () => {
                   <Table sx={{}} size="small" aria-label="a dense table">
                     <TableHead>
                       <TableRow sx={{ backgroundColor: "white" }}>
-                        <TableCell align="center">Name</TableCell>
-                        <TableCell align="center">Type</TableCell>
+                        <TableCell align="center" fontS>
+                          Account Number
+                        </TableCell>
+                        <TableCell align="center">Account Type</TableCell>
                         <TableCell align="center">Action</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {users &&
-                        users.map((user) => (
+                      {accounts &&
+                        accounts.map((account) => (
                           <TableRow
-                            key={user.id}
+                            key={account.id}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
                           >
-                            <TableCell align="center">{user.name}</TableCell>
-                            <TableCell align="center">{user.details}</TableCell>
+                            <TableCell align="center">
+                              {account.account_number}
+                            </TableCell>
+                            <TableCell align="center">
+                              {account.account_type}
+                            </TableCell>
                             <TableCell align="center">
                               <div>
                                 <Button
                                   variant="contained"
                                   color="secondary"
-                                  onClick={() => handleDetails(user.id)}
+                                  onClick={() =>
+                                    history.push(
+                                      `/accountdetails/${account.id}`
+                                    )
+                                  }
                                   size="small"
                                 >
                                   Details
