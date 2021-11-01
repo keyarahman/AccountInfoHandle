@@ -1,10 +1,8 @@
 import * as types from "../actionType";
 import axios from "axios";
 
-const ACCOUNT_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/accounts";
-const API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/account";
+const ACCOUNT_API = "https://eazm.co.uk/api/accounts";
+const API = "https://eazm.co.uk/api/account";
 
 const getAccounts = (accounts) => ({
   type: types.GET_ACCOUNTS,

@@ -1,26 +1,19 @@
 import * as types from "../actionType";
 import axios from "axios";
 
-const USER_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/users";
+const USER_API = "https://eazm.co.uk/api/users";
 
-const USER_NEW_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/user_new";
+const USER_NEW_API = "https://eazm.co.uk/api/user_new";
 
-const SINGLE_USER_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/user";
+const SINGLE_USER_API = "https://eazm.co.uk/api/user";
 
-const EDIT_USER_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/user_edit";
+const EDIT_USER_API = "https://eazm.co.uk/api/user_edit";
 
-const USER_DELETE_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/user_delete";
+const USER_DELETE_API = "https://eazm.co.uk/api/user_delete";
 
-const LOGIN_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/login";
+const LOGIN_API = "https://eazm.co.uk/api/login";
 
-const SIGN_UP_API =
-  "http://ec2-3-9-177-139.eu-west-2.compute.amazonaws.com/api/signup";
+const SIGN_UP_API = "https://eazm.co.uk/api/signup";
 
 const getUsers = (users) => ({
   type: types.GET_USERS,
