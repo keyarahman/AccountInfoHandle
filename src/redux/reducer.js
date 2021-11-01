@@ -63,6 +63,7 @@ export const accountReducer = (state = initialAccountState, action) => {
       return {
         ...state,
         account: action.payload,
+        transactions: action.transactions,
         loading: false,
       };
 

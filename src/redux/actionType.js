@@ -6,6 +6,7 @@ export const UPDATE_USER = "UPDATE_USER";
 export const LOGIN = "LOGIN";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const SIGN_UP = "SIGN_UP";
+export const LOG_OUT = "LOG_OUT";
 export const GET_SINGLE_USER = "GET_SINGLE_USER";
 
 export const GET_ACCOUNTS = "GET_ACCOUNTS";

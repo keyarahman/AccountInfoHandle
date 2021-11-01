@@ -10,9 +10,10 @@ const getAccounts = (accounts) => ({
   type: types.GET_ACCOUNTS,
   payload: accounts,
 });
-const get_an_account = (account) => ({
+const get_an_account = (account, transactions) => ({
   type: types.GET_AN_ACCOUNT,
   payload: account,
+  transactions: transactions,
 });
 
 export const loadAccounts = () => {
@@ -48,7 +49,12 @@ export const getAnAccount = (id) => {
       })
       .then((res) => {
         console.log("responseData", res.data.account.transactions);
-        dispatch(get_an_account(res.data.account));
+        dispatch(
+          get_an_account(
+            res.data.account.account_holder,
+            res.data.account.transactions
+          )
+        );
       })
       .catch((error) => console.log("error", error));
   };

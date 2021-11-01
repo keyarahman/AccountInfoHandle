@@ -45,7 +45,7 @@ const PersonalAccount = () => {
 
   const handleOnClick = (i) => {
     if (i === 0) {
-      history.push("/Dashboard");
+      history.push("/");
     }
     if (i === 1) {
       history.push("/userList");
@@ -98,7 +98,7 @@ const PersonalAccount = () => {
         </Drawer>
         <Box
           component="container"
-          sx={{ flex: 1, bgcolor: "#F5F5F5", height: "100vh" }}
+          sx={{ flex: 1, bgcolor: "#F5F5F5", height: "100%" }}
           noValidate
           autoComplete="off"
         >
@@ -114,7 +114,6 @@ const PersonalAccount = () => {
             >
               <Container maxWidth="md">
                 <div>
-                  <h1>Account Holder</h1>
                   <TableContainer sx={{}} component={Paper}>
                     <Table sx={{}} size="small">
                       <TableBody>
@@ -135,9 +134,7 @@ const PersonalAccount = () => {
 
                     padding: "1rem",
                   }}
-                >
-                  <h1>Account Statement</h1>
-                </div>
+                ></div>
 
                 <TableContainer sx={{}} component={Paper}>
                   <Table sx={{}} size="small" aria-label="a dense table">

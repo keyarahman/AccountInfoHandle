@@ -44,7 +44,7 @@ const UserListPage = () => {
 
   const handleOnClick = (i) => {
     if (i === 0) {
-      history.push("/Dashboard");
+      history.push("/");
     }
     if (i === 1) {
       history.push("/userList");
@@ -178,6 +178,7 @@ const UserListPage = () => {
                                 color="error"
                                 onClick={() => handleDelete(user.id)}
                                 size="small"
+                                // startIcon={<DeleteIcon />}
                               >
                                 Delete
                               </Button>

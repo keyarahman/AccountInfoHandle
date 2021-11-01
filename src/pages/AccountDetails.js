@@ -35,12 +35,12 @@ const AccountDetails = () => {
     dispatch(getAnAccount(id));
   }, []);
 
-  const { account } = useSelector((state) => state.accountData);
+  const { account, transactions } = useSelector((state) => state.accountData);
   console.log(account);
 
   const handleOnClick = (i) => {
     if (i === 0) {
-      history.push("/Dashboard");
+      history.push("/");
     }
     if (i === 1) {
       history.push("/userList");
@@ -62,7 +62,7 @@ const AccountDetails = () => {
         >
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              Admin Dashboard
+              Account Details
             </Typography>
           </Toolbar>
         </AppBar>
@@ -93,83 +93,83 @@ const AccountDetails = () => {
         </Drawer>
         <Box
           component="container"
-          sx={{ flex: 1, bgcolor: "#F5F5F5", height: "100vh" }}
+          sx={{
+            flex: 1,
+            bgcolor: "#F5F5F5",
+            height: "100%",
+          }}
           noValidate
           autoComplete="off"
         >
-          <div>
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                height: "100%",
-                marginTop: "100px",
-                alignItems: "flex-start",
-              }}
-            >
-              <Container maxWidth="md">
-                <div>
-                  <h1>Account Holder</h1>
-                  <TableContainer sx={{}} component={Paper}>
-                    <Table sx={{}} size="small">
-                      <TableBody>
-                        <p>Name:{account.id}</p>
-                        <p>Account Number: {account.account_number}</p>
-                        <p>Account Type: {account.account_type}</p>
-                        <h1>Email: {account.name}</h1>
-                        <p>Phone: {account.phone} </p>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100%",
-
-                    padding: "1rem",
-                  }}
-                >
-                  <h1>Account Statement</h1>
-                </div>
-
+          <div
+            style={{
+              display: "flex",
+              paddingBottom: "300px",
+              width: "100%",
+              height: "100%",
+              maxHeight: "100vh",
+              marginTop: "150px",
+              alignItems: "flex-start",
+            }}
+          >
+            <Container maxWidth="md">
+              <div>
                 <TableContainer sx={{}} component={Paper}>
-                  <Table sx={{}} size="small" aria-label="a dense table">
-                    <TableHead>
-                      <TableRow sx={{ backgroundColor: "white" }}>
-                        <TableCell align="center">Date</TableCell>
-
-                        <TableCell align="center">Status</TableCell>
-                        <TableCell align="center">Amount</TableCell>
-                      </TableRow>
-                    </TableHead>
+                  <Table sx={{}} size="small">
                     <TableBody>
-                      {account.transactions &&
-                        account.transactions.map((statement) => (
-                          <TableRow
-                            key={statement.id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell align="center">
-                              {statement.date}
-                            </TableCell>
-                            <TableCell align="center">
-                              {statement.status}
-                            </TableCell>
-                            <TableCell align="center">
-                              {"\u00A3"}
-                              {statement.amount}
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                      <p>
+                        Account holder name: {account.name} {account.last_name}
+                      </p>
+
+                      <p>Email: {account.email}</p>
+                      <p>Phone: {account.phone} </p>
                     </TableBody>
                   </Table>
                 </TableContainer>
-              </Container>
-            </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+
+                  padding: "1rem",
+                }}
+              ></div>
+
+              <TableContainer sx={{}} component={Paper}>
+                <Table sx={{}} size="small" aria-label="a dense table">
+                  <TableHead>
+                    <TableRow sx={{ backgroundColor: "white" }}>
+                      <TableCell align="center">Date</TableCell>
+
+                      <TableCell align="center">Status</TableCell>
+                      <TableCell align="center">Amount</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {transactions &&
+                      transactions.map((statement) => (
+                        <TableRow
+                          key={statement.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell align="center">{statement.date}</TableCell>
+                          <TableCell align="center">
+                            {statement.status}
+                          </TableCell>
+                          <TableCell align="center">
+                            {"\u00A3"}
+                            {statement.amount}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Container>
           </div>
         </Box>
       </Box>

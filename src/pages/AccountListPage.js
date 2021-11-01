@@ -37,7 +37,7 @@ const AccountListPage = () => {
 
   const handleOnClick = (i) => {
     if (i === 0) {
-      history.push("/Dashboard");
+      history.push("/");
     }
     if (i === 1) {
       history.push("/userList");

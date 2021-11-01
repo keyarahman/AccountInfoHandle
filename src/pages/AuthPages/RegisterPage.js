@@ -3,12 +3,17 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
+import { useHistory } from "react-router-dom";
 import { Button } from "@mui/material";
-import { useHistory } from "react-router";
-import { SIGN_UP } from "../../redux/actionType";
-import { signUp } from "../../redux/Action/userAction";
 import { useSelector, useDispatch } from "react-redux";
+import Drawer from "@mui/material/Drawer";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import { signUp } from "../../redux/Action/userAction";
 
+const drawerWidth = 240;
 const RegisterPage = () => {
   let history = useHistory();
   const dispatch = useDispatch();
@@ -35,25 +40,83 @@ const RegisterPage = () => {
       setError("");
       dispatch(
         signUp(title, first_name, last_name, email, password, phone, () => {
-          history.push("/");
+          history.push("/login");
         })
       );
-      // history.push("/Dashboard");
     }
   };
 
-  const handleButton = () => {
-    history.push("/");
+  const handleRegButton = () => {
+    history.push("/register");
+  };
+  const handleLoginButton = () => {
+    history.push("/login");
   };
   return (
     <div>
-      <Container style={{ width: "100%", height: "100%" }}>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          sx={{
+            width: `calc(100% - ${drawerWidth}px)`,
+            ml: `${drawerWidth}px`,
+          }}
+        >
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div"></Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          variant="permanent"
+          anchor="left"
+        >
+          <Toolbar />
+          <Divider />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              paddingTop: "20px",
+            }}
+          >
+            <Button
+              style={{ width: "110px", padding: "10px" }}
+              variant="outlined"
+              color="primary"
+              onClick={handleLoginButton}
+            >
+              LOGIN
+            </Button>
+            <Button
+              style={{
+                width: "110px",
+                marginTop: "10px",
+                padding: "10px",
+              }}
+              variant="outlined"
+              color="primary"
+              onClick={handleRegButton}
+            >
+              SignUp
+            </Button>
+          </div>
+        </Drawer>
         <Box
           sx={{
             bgcolor: "white",
             height: "80vh",
             width: "450px",
-            marginTop: "50px",
+            marginTop: "90px",
             marginLeft: "350px",
             boxShadow: ".2px .2px .2px .5px",
           }}
@@ -150,15 +213,15 @@ const RegisterPage = () => {
                   // variant="contained"
                   color="primary"
                   type="text"
-                  onClick={handleButton}
+                  onClick={handleLoginButton}
                 >
-                  Sign In
+                  Log In
                 </Button>
               </Box>
             </div>
           </div>
         </Box>
-      </Container>
+      </Box>
     </div>
   );
 };

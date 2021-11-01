@@ -89,6 +89,10 @@ export const Login = (email, password, onComplete, onError) => {
   };
 };
 
+export const logout = () => {
+  localStorage.setItem("profile", null);
+};
+
 export const signUp = (
   title,
   fName,

@@ -5,9 +5,15 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import { useHistory } from "react-router-dom";
 import { Button } from "@mui/material";
-import { Login } from "../../redux/Action/userAction";
 import { useSelector, useDispatch } from "react-redux";
+import Drawer from "@mui/material/Drawer";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import { Login } from "../../redux/Action/userAction";
 
+const drawerWidth = 240;
 const LogInPage = () => {
   let dispatch = useDispatch();
   const { loginError } = useSelector((state) => state.authData);
@@ -16,11 +22,9 @@ const LogInPage = () => {
     email: "",
     password: "",
   });
+
   const { email, password } = data;
-
   const [error, setError] = useState("");
-
-  // setError(loginError);
 
   let history = useHistory();
   const handleInputchange = (e) => {
@@ -41,7 +45,7 @@ const LogInPage = () => {
           data.password,
           () => {
             setError("");
-            history.push("/Dashboard");
+            history.push("/");
           },
           () => {
             setError("Invalid email or password");
@@ -51,19 +55,79 @@ const LogInPage = () => {
     }
   };
 
-  const handleButton = () => {
+  const handleRegButton = () => {
     history.push("/register");
+  };
+  const handleLoginButton = () => {
+    history.push("/login");
   };
 
   return (
-    <Container style={{ width: "100%", height: "100%" }}>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
+        }}
+      >
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div"></Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+        <Divider />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingTop: "20px",
+          }}
+        >
+          <Button
+            style={{ width: "110px", padding: "10px" }}
+            variant="outlined"
+            color="primary"
+            onClick={handleLoginButton}
+          >
+            LOGIN
+          </Button>
+          <Button
+            style={{
+              width: "110px",
+              marginTop: "10px",
+              padding: "10px",
+            }}
+            variant="outlined"
+            color="primary"
+            onClick={handleRegButton}
+          >
+            SignUp
+          </Button>
+        </div>
+      </Drawer>
+
       <Box
         sx={{
           bgcolor: "white",
           height: "60vh",
           width: "450px",
-          marginTop: "100px",
-          marginLeft: "350px",
+          marginTop: "150px",
+          marginLeft: "340px",
           boxShadow: ".2px .2px .2px .5px",
         }}
       >
@@ -122,11 +186,12 @@ const LogInPage = () => {
                   flexDirection: "row",
                   gap: "5px",
                   marginLeft: "80px",
+                  width: "300px",
                   alignItems: "baseline",
                 }}
               >
                 <p> Do you have an account?</p>
-                <h4 style={{ color: "#0000FF" }} onClick={handleButton}>
+                <h4 style={{ color: "#0000FF" }} onClick={handleRegButton}>
                   {" "}
                   Sign Up
                 </h4>
@@ -135,7 +200,7 @@ const LogInPage = () => {
           </div>
         </div>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
